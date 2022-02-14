@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Admin CitasFisio') }}
+            MIS CITAS
         </h2>
     </x-slot>
 
@@ -9,7 +9,6 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    
 
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div class="flex flex-col">
@@ -40,7 +39,7 @@
               <td class="px-6 py-4 whitespace-nowrap">
                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> {{ $cita->observaciones}} </span>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $cita->servicio_id }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $cita->servicio->servicio }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
               </td>

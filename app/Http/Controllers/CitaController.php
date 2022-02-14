@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cita;
+use Illuminate\Support\Facades\Auth;
 
 class CitaController extends Controller
 {
@@ -14,7 +15,11 @@ class CitaController extends Controller
      */
     public function index()
     {
-        $citas = Cita::all();
+        //Sacar id de usuario autenticado
+        $id = Auth::id();
+        //Sacar las citas del usuario que se ha logueado
+        $citas = Cita::where('user_id', $id)->get();
+
         return view('dashboard',['citas' => $citas]);
     }
 
