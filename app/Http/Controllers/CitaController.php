@@ -30,7 +30,7 @@ class CitaController extends Controller
      */
     public function create()
     {
-        //
+        echo "Formulario nueva cita";
     }
 
     /**
@@ -86,6 +86,8 @@ class CitaController extends Controller
      */
     public function destroy($id)
     {
-        echo "Eliminar cita";
+        Cita::destroy($id);
+        return redirect()->route('citas.index');
+
     }
 }
