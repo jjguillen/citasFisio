@@ -26,6 +26,15 @@ Route::prefix('/dashboard')->group(function () {
         //Ruta al entrar al panel de administración
         Route::get('/', [CitaController::class, 'index'])->name('dashboard');
 
+        //Rutas asociadas al controlador resource CitaController
+        //GET 	/citas 	index 	citas.index
+        //GET 	/citas/create 	create 	citas.create
+        //POST 	/citas 	store 	citas.store
+        //GET 	/citas/{photo} 	show 	citas.show
+        //GET 	/citas/{photo}/edit 	edit 	citas.edit
+        //PUT/PATCH 	/citas/{photo} 	update 	citas.update
+        //DELETE 	/citas/{photo} 	destroy 	citas.destroy
+        Route::resource('citas', CitaController::class);
     
     });
 });

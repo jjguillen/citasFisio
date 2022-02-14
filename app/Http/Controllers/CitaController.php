@@ -52,7 +52,7 @@ class CitaController extends Controller
      */
     public function show($id)
     {
-        //
+        echo "Ver cita";
     }
 
     /**
@@ -63,7 +63,7 @@ class CitaController extends Controller
      */
     public function edit($id)
     {
-        //
+        echo "Editar cita";
     }
 
     /**
@@ -75,7 +75,7 @@ class CitaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        echo "Modificar cita";
     }
 
     /**
@@ -86,6 +86,6 @@ class CitaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        echo "Eliminar cita";
     }
 }

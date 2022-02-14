@@ -25,9 +25,12 @@
               <th scope="col" class="relative px-6 py-3">
                 <span class="sr-only">Edit</span>
               </th>
+              <th scope="col" class="relative px-6 py-3">
+                <span class="sr-only">Delete</span>
+              </th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
+          <tbody class="bg-white divide-y divide-gray-200" id='mitabla'>
             @foreach($citas as $cita)
             <tr>
               <td class="px-6 py-4 whitespace-nowrap">
@@ -41,7 +44,10 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $cita->servicio->servicio }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                <a href="/dashboard/citas/{{ $cita->id }}/edit" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <a href="/dashboard/citas/{{ $cita->id }}" data-method='delete' class="text-indigo-600 hover:text-indigo-900">Delete</a>
               </td>
             </tr>
             @endforeach
@@ -57,3 +63,4 @@
         </div>
     </div>
 </x-app-layout>
+
