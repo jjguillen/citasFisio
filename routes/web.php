@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CitaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Las rutas estáticas con lo que ofrece la empresa - PÁGINA ESTÁTICA
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::prefix('/dashboard')->group(function () {
+    Route::middleware(['auth'])->group(function () {
+        //Mis rutas ---------------------------------------
+
+        //Ruta al entrar al panel de administración
+        Route::get('/', [CitaController::class, 'index'])->name('dashboard');
+
+    
+    });
+});
 
 require __DIR__.'/auth.php';

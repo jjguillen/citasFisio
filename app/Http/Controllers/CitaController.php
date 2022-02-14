@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCitaRequest;
-use App\Http\Requests\UpdateCitaRequest;
+use Illuminate\Http\Request;
 use App\Models\Cita;
 
 class CitaController extends Controller
@@ -15,7 +14,8 @@ class CitaController extends Controller
      */
     public function index()
     {
-        //
+        $citas = Cita::all();
+        return view('dashboard',['citas' => $citas]);
     }
 
     /**
@@ -31,10 +31,10 @@ class CitaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCitaRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCitaRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class CitaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Cita  $cita
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Cita $cita)
+    public function show($id)
     {
         //
     }
@@ -53,10 +53,10 @@ class CitaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Cita  $cita
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cita $cita)
+    public function edit($id)
     {
         //
     }
@@ -64,11 +64,11 @@ class CitaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCitaRequest  $request
-     * @param  \App\Models\Cita  $cita
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCitaRequest $request, Cita $cita)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +76,10 @@ class CitaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cita  $cita
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cita $cita)
+    public function destroy($id)
     {
         //
     }
