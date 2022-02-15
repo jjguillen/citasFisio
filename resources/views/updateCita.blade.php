@@ -38,11 +38,11 @@
                                 $horas = array(10,11,12,13,16,17,18,19,20);
                             @endphp
                         
-                            @foreach($horas as $hora)
-                                @if ($cita->hora === $hora)
-                                    <option value="{{$hora}}" selected>{{$hora}}:00</option>
+                            @foreach($horasLibres as $hora)
+                                @if ($cita->hora === $hora->hora)
+                                    <option value="{{$hora->hora}}" selected>{{$hora->hora}}:00</option>
                                 @else
-                                    <option value="{{$hora}}">{{$hora}}:00</option>
+                                    <option value="{{$hora->hora}}">{{$hora->hora}}:00</option>
                                 @endif
                             @endforeach                            
 
@@ -86,3 +86,13 @@
     </div>
 </x-app-layout>
 
+<script>
+  document.getElementById("fecha").addEventListener("change", async function(e)  {
+        let formData = new FormData();
+		let res = await fetch("/dashboard/citas/horasDisp/"+this.value, {
+			method: "GET",
+		});
+		let data = await res.text();
+        document.getElementById("hora").innerHTML = data;
+	});
+</script>

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->date('fecha');
             $table->integer('hora');
-            $table->text('observaciones');
+            $table->text('observaciones')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('servicio_id');
             $table->foreign('user_id')->references('id')->on('users');
