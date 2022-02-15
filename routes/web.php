@@ -36,6 +36,9 @@ Route::prefix('/dashboard')->group(function () {
         //PUT/PATCH 	/citas/{cita} 	update 	citas.update
         //DELETE 	/citas/{cita} 	destroy 	citas.destroy
         Route::resource('citas', CitaController::class);
+
+        //Ver horas libres en una fecha, para poder dar una cita
+        Route::get('/citas/horasDisp/{fecha}', [CitaController::class, 'horasDisp']);
     
     });
 });

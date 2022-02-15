@@ -4,10 +4,39 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cita;
+use App\Models\Servicio;
 use Illuminate\Support\Facades\Auth;
 
 class CitaController extends Controller
 {
+    /**
+     * Display horas libres en una fecha
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function horasDisp($fecha)
+    {
+        //Horas en que atiendo
+        $horas = array(10,11,12,13,16,17,18,19,20);
+
+        //Sacar las horas ocupadas esa fecha
+        $horasOcupadas = Cita::select('hora')->where('fecha',$fecha)->get();
+        foreach($horas as $hora) {
+            $encontrado = false;
+            
+            foreach($horasOcupadas as $horac) {
+                if ($horac->hora == $hora)
+                    $encontrado = true;
+            }
+            
+            if (!$encontrado) {
+                echo "<option value='{$hora}'>{$hora}:00</option>";
+            }
+        }
+
+       echo "Horas disponibles ";
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +59,8 @@ class CitaController extends Controller
      */
     public function create()
     {
-        echo "Formulario nueva cita";
+        $servicios = Servicio::all();
+        return view('createCita',['servicios' => $servicios]);
     }
 
     /**
@@ -41,7 +71,14 @@ class CitaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cita = new Cita;
+        $cita->fecha = $request->fecha;
+        $cita->hora = $request->hora;
+        $cita->observaciones = $request->observaciones;
+        $cita->servicio_id = $request->servicio;
+        $cita->user_id = Auth::id();
+        $cita->save();
+        return redirect()->route('citas.index');
     }
 
     /**
@@ -63,7 +100,9 @@ class CitaController extends Controller
      */
     public function edit($id)
     {
-        echo "Editar cita";
+        $servicios = Servicio::all();
+        $cita = Cita::find($id);
+        return view('updateCita',['servicios' => $servicios, 'cita' => $cita]);
     }
 
     /**
@@ -75,7 +114,14 @@ class CitaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        echo "Modificar cita";
+        $cita = Cita::find($id);
+        $cita->fecha = $request->fecha;
+        $cita->hora = $request->hora;
+        $cita->observaciones = $request->observaciones;
+        $cita->servicio_id = $request->servicio;
+        $cita->user_id = Auth::id();
+        $cita->save();
+        return redirect()->route('citas.index');
     }
 
     /**
