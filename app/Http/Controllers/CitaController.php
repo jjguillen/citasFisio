@@ -19,7 +19,7 @@ class CitaController extends Controller
         //Horas en que atiendo
         $horas = array(10,11,12,13,16,17,18,19,20);
 
-        //Sacar las horas ocupadas esa fecha
+        //Sacar las horas libres esa fecha
         $horasOcupadas = Cita::select('hora')->where('fecha',$fecha)->get();
         foreach($horas as $hora) {
             $encontrado = false;
