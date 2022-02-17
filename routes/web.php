@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CitaController;
+use App\Http\Controllers\ServicioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,13 @@ Route::prefix('/dashboard')->group(function () {
 
         //Ver horas libres en una fecha, para poder dar una cita
         Route::get('/citas/horasDisp/{fecha}', [CitaController::class, 'horasDisp']);
-    
+
+        //Rutas para Servicios
+        Route::get('/servicios', [ServicioController::class, 'index'])->name('dashboard.servicios');
+        Route::get('/servicios/delete/{id}', [ServicioController::class, 'destroy']);
+        Route::get('/servicios/create', [ServicioController::class, 'create']);
+        Route::post('/servicios', [ServicioController::class, 'store'])->name('servicios.store');
+
     });
 });
 

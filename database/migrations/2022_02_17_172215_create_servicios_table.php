@@ -13,11 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
+        
         Schema::create('servicios', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('servicio');
+            $table->string('imagen');
             $table->timestamps();
         });
+        /*
+        //Modificar la tabla añadiéndole una nueva columna (habría que comentar lo de arriba y migrate)
+        Schema::table('servicios', function (Blueprint $table) {
+            $table->string('imagen');
+        });
+        */
     }
 
     /**

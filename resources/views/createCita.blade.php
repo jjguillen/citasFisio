@@ -19,6 +19,16 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
+                @if ($errors->any())
+                    <div class="text-red-700">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <form method="POST" action="{{ route('citas.store') }}">
                     @csrf
 
@@ -26,7 +36,7 @@
                     <div>
                         <x-label for="fecha" :value="__('Fecha')" />
 
-                        <x-input id="fecha" class="block mt-1 w-full" type="date" name="fecha" :value="old('name')" required autofocus />
+                        <x-input id="fecha" class="block mt-1 w-full" type="date" name="fecha" :value="old('fecha')"  autofocus />
                     </div>
 
                     <!-- Hora -->

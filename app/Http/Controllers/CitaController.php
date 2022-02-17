@@ -8,6 +8,7 @@ use App\Models\Hora;
 use App\Models\Servicio;
 use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+use Carbon\Carbon; 
 
 class CitaController extends Controller
 {
@@ -37,7 +38,7 @@ class CitaController extends Controller
         //Sacar id de usuario autenticado
         $id = Auth::id();
         //Sacar las citas del usuario que se ha logueado
-        $citas = Cita::where('user_id', $id)->get();
+        $citas = Cita::where('user_id', $id)->paginate(5);
 
         return view('dashboard',['citas' => $citas]);
     }
@@ -62,6 +63,15 @@ class CitaController extends Controller
      */
     public function store(Request $request)
     {
+        $hoy = Carbon::now();
+
+        //Validación
+        $validated = $request->validate([
+            'observaciones' => 'required|max:255',
+            'fecha' => 'required|after:today'
+        ]);
+
+        //Insercción
         $cita = new Cita;
         $cita->fecha = $request->fecha;
         $cita->hora = $request->hora;
@@ -112,6 +122,14 @@ class CitaController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        //Validación
+        $validated = $request->validate([
+            'observaciones' => 'required|max:255',
+            'fecha' => 'required|min:'
+        ]);
+
+        //Modificación
         $cita = Cita::find($id);
         if ($cita->user_id == Auth::id()) {
             $cita->fecha = $request->fecha;
