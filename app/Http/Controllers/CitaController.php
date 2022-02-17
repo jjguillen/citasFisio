@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cita;
+use App\Models\Hora;
 use App\Models\Servicio;
 use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class CitaController extends Controller
 {
@@ -16,23 +18,13 @@ class CitaController extends Controller
      */
     public function horasDisp($fecha)
     {
-        //Horas en que atiendo
-        $horas = array(10,11,12,13,16,17,18,19,20);
-
         //Sacar las horas libres esa fecha
-        $horasOcupadas = Cita::select('hora')->where('fecha',$fecha)->get();
-        foreach($horas as $hora) {
-            $encontrado = false;
-            
-            foreach($horasOcupadas as $horac) {
-                if ($horac->hora == $hora)
-                    $encontrado = true;
-            }
-            
-            if (!$encontrado) {
-                echo "<option value='{$hora}'>{$hora}:00</option>";
-            }
+        $horasLibres = Hora::select('hora')->whereNotIn('hora', Cita::select('hora')->where('fecha',$fecha)->get())->get();
+        foreach($horasLibres as $hora) {
+            echo "<option value='{$hora->hora}'>{$hora->hora}:00</option>";
         }
+
+
     }
 
     /**
@@ -57,8 +49,9 @@ class CitaController extends Controller
      */
     public function create()
     {
+        $horas = Hora::all();
         $servicios = Servicio::all();
-        return view('createCita',['servicios' => $servicios]);
+        return view('createCita',['servicios' => $servicios, 'horas' => $horas]);
     }
 
     /**
@@ -102,11 +95,8 @@ class CitaController extends Controller
         if ($cita->user_id == Auth::id()) {
             $servicios = Servicio::all();
             //Sacar las horas libres esa fecha
-            $horas = Cita::select('hora')->where('fecha',$cita->fecha)->get();
-            $horasTotales = collect(['hora' => 10, 'hora' => 11, 'hora' => 12, 'hora' => 13,
-                                     'hora' => 16, 'hora' => 17, 'hora' => 18, 'hora' => 19, 'hora' => 20]);
-            $horasLibres = $horas->diffAssoc($horasTotales);
-    
+            $horasLibres = Hora::select('hora')->whereNotIn('hora', Cita::select('hora')->where('fecha',$cita->fecha)->get())->get();
+
             return view('updateCita',['servicios' => $servicios, 'cita' => $cita, 'horasLibres' => $horasLibres]);
         } else {
             abort(403);

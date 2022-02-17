@@ -34,10 +34,6 @@
                     <div class="mt-4">
                         <x-label for="hora" :value="__('Hora')" />
                         <select name="hora" id="hora" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            @php
-                                $horas = array(10,11,12,13,16,17,18,19,20);
-                            @endphp
-                        
                             @foreach($horasLibres as $hora)
                                 @if ($cita->hora === $hora->hora)
                                     <option value="{{$hora->hora}}" selected>{{$hora->hora}}:00</option>

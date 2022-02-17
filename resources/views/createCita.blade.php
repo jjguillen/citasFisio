@@ -33,14 +33,9 @@
                     <div class="mt-4">
                         <x-label for="hora" :value="__('Hora')" />
                         <select name="hora" id="hora" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            <option value="10">10:00</option>
-                            <option value="11">11:00</option>
-                            <option value="12">12:00</option>
-                            <option value="13">13:00</option>
-                            <option value="17">17:00</option>
-                            <option value="18">18:00</option>
-                            <option value="19">19:00</option>
-                            <option value="20">20:00</option>
+                            @foreach($horas as $hora)
+                                <option value="{{ $hora->hora }}">{{ $hora->hora }}:00</option>
+                            @endforeach
                         </select>
                     </div>
 
