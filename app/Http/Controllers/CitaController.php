@@ -35,10 +35,16 @@ class CitaController extends Controller
      */
     public function index()
     {
-        //Sacar id de usuario autenticado
-        $id = Auth::id();
-        //Sacar las citas del usuario que se ha logueado
-        $citas = Cita::where('user_id', $id)->paginate(5);
+        //El admin puede verlas todas
+        if (Auth::user()->role == 'admin') {
+            $citas = Cita::paginate(5);
+        } else {
+            //Sacar id de usuario autenticado
+            $id = Auth::id();
+            //Sacar las citas del usuario que se ha logueado
+            $citas = Cita::where('user_id', $id)->paginate(5);
+        }
+       
 
         return view('dashboard',['citas' => $citas]);
     }
@@ -102,15 +108,12 @@ class CitaController extends Controller
     public function edit($id)
     {
         $cita = Cita::find($id);
-        if ($cita->user_id == Auth::id()) {
-            $servicios = Servicio::all();
-            //Sacar las horas libres esa fecha
-            $horasLibres = Hora::select('hora')->whereNotIn('hora', Cita::select('hora')->where('fecha',$cita->fecha)->get())->get();
+        $this->authorize('update', $cita);
+        $servicios = Servicio::all();
+        //Sacar las horas libres esa fecha
+        $horasLibres = Hora::select('hora')->whereNotIn('hora', Cita::select('hora')->where('fecha',$cita->fecha)->get())->get();
 
-            return view('updateCita',['servicios' => $servicios, 'cita' => $cita, 'horasLibres' => $horasLibres]);
-        } else {
-            abort(403);
-        }
+        return view('updateCita',['servicios' => $servicios, 'cita' => $cita, 'horasLibres' => $horasLibres]);
     }
 
     /**
@@ -131,16 +134,13 @@ class CitaController extends Controller
 
         //Modificación
         $cita = Cita::find($id);
-        if ($cita->user_id == Auth::id()) {
-            $cita->fecha = $request->fecha;
-            $cita->hora = $request->hora;
-            $cita->observaciones = $request->observaciones;
-            $cita->servicio_id = $request->servicio;
-            $cita->user_id = Auth::id();
-            $cita->save();
-        } else {
-            abort(403);
-        }
+        $this->authorize('update', $cita);
+        $cita->fecha = $request->fecha;
+        $cita->hora = $request->hora;
+        $cita->observaciones = $request->observaciones;
+        $cita->servicio_id = $request->servicio;
+        $cita->user_id = Auth::id();
+        $cita->save();
         
         return redirect()->route('citas.index');
     }
@@ -154,13 +154,9 @@ class CitaController extends Controller
     public function destroy($id)
     {
         $cita = Cita::find($id);
-        if ($cita->user_id == Auth::id()) {
-            Cita::destroy($id);
-        } else {
-            abort(403);
-        }
-        
-        
+        $this->authorize('delete', $cita);
+        Cita::destroy($id);
+       
         return redirect()->route('citas.index');
 
     }

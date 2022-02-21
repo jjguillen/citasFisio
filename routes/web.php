@@ -17,7 +17,7 @@ use App\Http\Controllers\ServicioController;
 
 //Las rutas estáticas con lo que ofrece la empresa - PÁGINA ESTÁTICA
 Route::get('/', function () {
-    return redirect('/login');
+    return view('welcome');
 });
 
 Route::prefix('/dashboard')->group(function () {
@@ -40,7 +40,9 @@ Route::prefix('/dashboard')->group(function () {
 
         //Ver horas libres en una fecha, para poder dar una cita
         Route::get('/citas/horasDisp/{fecha}', [CitaController::class, 'horasDisp']);
+    });
 
+    Route::middleware(['auth'])->group(function () {
         //Rutas para Servicios
         Route::get('/servicios', [ServicioController::class, 'index'])->name('dashboard.servicios');
         Route::get('/servicios/delete/{id}', [ServicioController::class, 'destroy']);

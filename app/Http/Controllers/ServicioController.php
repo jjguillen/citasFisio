@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Servicio;
 use App\Models\Cita;
+use Illuminate\Support\Facades\Auth;
 
 class ServicioController extends Controller
 {
     
 
     public function index() {
+        $this->authorize('viewAny', Servicio::class);
+
         $servicios = Servicio::all();
         return view('servicios', ['servicios' => $servicios]);
     }
