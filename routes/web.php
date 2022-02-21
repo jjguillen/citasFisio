@@ -42,7 +42,7 @@ Route::prefix('/dashboard')->group(function () {
         Route::get('/citas/horasDisp/{fecha}', [CitaController::class, 'horasDisp']);
     });
 
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware(['auth','role:admin'])->group(function () {
         //Rutas para Servicios
         Route::get('/servicios', [ServicioController::class, 'index'])->name('dashboard.servicios');
         Route::get('/servicios/delete/{id}', [ServicioController::class, 'destroy']);
