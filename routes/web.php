@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\ServicioController;
+use App\Http\Controllers\ProductoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,12 @@ use App\Http\Controllers\ServicioController;
 */
 
 //Las rutas estáticas con lo que ofrece la empresa - PÁGINA ESTÁTICA
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ServicioController::class, 'indexPublic']);
+Route::get('/tienda', [ProductoController::class, 'index']);
+Route::get('/tienda/carro/{id}', [ProductoController::class, 'addCarro']);
+Route::get('/tienda/verCarro', [ProductoController::class, 'verCarro']);
+
+
 
 Route::prefix('/dashboard')->group(function () {
     Route::middleware(['auth'])->group(function () {

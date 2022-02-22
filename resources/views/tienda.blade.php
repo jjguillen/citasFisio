@@ -27,7 +27,7 @@
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Administra tus citas</a>
+                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Citas</a>
                     @else
                         <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
 
@@ -35,7 +35,13 @@
                             <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
                         @endif
                     @endauth
+                    
                     <a href="{{ url('/tienda') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Tienda</a>
+                    <a href="{{ url('/tienda/verCarro') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">
+                        <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" class="mt-2 w-5 h-5 text-gray-400">
+                            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </a>
                 </div>
             @endif
 
@@ -43,22 +49,29 @@
             <div class="py-12 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="lg:text-center">
-                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">CitasFisio</p>
-                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">Reserva tu cita para un tratamiento que dejará fino, o compra productos para llevar el espíritu a tu casa.</p>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">TIENDA CitasFisio</p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">Compra nuestro productos última generación.</p>
                 </div>
 
                 <div class="mt-10">
                 <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
                    
-                @foreach($servicios as $servicio)
+                @foreach($productos as $producto)
                     <div class="relative">
                     <dt>
-                        <div class="flex items-center justify-center h-52 w-52 rounded-md  text-white">
+                        <div class="flex items-center ml-5 h-52 w-52 rounded-md  text-blue-500">
                         <!-- Heroicon name: outline/globe-alt -->
-                        <img src='{{ $servicio->imagen }}'>
+                        <img src='{{ $producto->imagen }}'>
+                        <span class='ml-5'>{{ $producto->precio }}€</span>
+                        <a href="/tienda/carro/{{ $producto->id }}" class="text-indigo-600 hover:text-indigo-900 ml-5">
+                            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded">
+                                Comprar
+                            </button>
+                        </a>
                         </div>
-                        <p class="ml-16 text-lg leading-6 font-medium text-gray-900">{{ $servicio->servicio }}</p>
+                        <p class="text-lg leading-6 font-medium text-gray-900">{{ $producto->nombre }}</p>
                     </dt>
+                    <dd class="mt-2 text-base text-gray-500">{{ $producto->descripcion }}</dd>
                     </div>
                 @endforeach
                     

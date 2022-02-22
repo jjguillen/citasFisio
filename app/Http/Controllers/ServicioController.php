@@ -18,6 +18,11 @@ class ServicioController extends Controller
         return view('servicios', ['servicios' => $servicios]);
     }
 
+    public function indexPublic() {
+        $servicios = Servicio::all();
+        return view('welcome', ['servicios' => $servicios]);
+    }
+
     public function destroy($id)
     {
         //Si hay citas con ese servicio contratado no puedo borrarlo.

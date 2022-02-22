@@ -22,7 +22,9 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            
         });
+        
         /*
         Schema::table('users', function (Blueprint $table) {
             $table->string('role')->nullable();
