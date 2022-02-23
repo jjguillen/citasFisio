@@ -50,7 +50,7 @@ class PedidoController extends Controller
             $total += $producto->precio * $producto->pivot->cantidad;
         }
 
-        return view('pedidosDetalle', [ 'productos' => $productos, 'total' => $total]);
+        return view('pedidosDetalle', [ 'pedido' => $pedido, 'productos' => $productos, 'total' => $total]);
     }
 
 

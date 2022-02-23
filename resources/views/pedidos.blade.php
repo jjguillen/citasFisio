@@ -41,7 +41,7 @@
               </td>
 
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $pedido->gastos_envio }}€</td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                 <a href="/dashboard/pedidos/{{ $pedido->id }}" class="text-indigo-600 hover:text-indigo-900">
                   <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded">
                     Ver detalle 

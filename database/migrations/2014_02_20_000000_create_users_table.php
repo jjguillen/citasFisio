@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -25,11 +26,13 @@ return new class extends Migration
             
         });
         
+        
         /*
         Schema::table('users', function (Blueprint $table) {
             $table->string('role')->nullable();
-        }); 
-        */
+        });
+        */ 
+        
     }
 
     /**
