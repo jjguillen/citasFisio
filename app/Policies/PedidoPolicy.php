@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Cita;
+use App\Models\Pedido;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CitaPolicy
+class PedidoPolicy
 {
     use HandlesAuthorization;
 
@@ -25,12 +25,12 @@ class CitaPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Cita  $cita
+     * @param  \App\Models\Pedido  $pedido
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Cita $cita)
+    public function view(User $user, Pedido $pedido)
     {
-        return ($user->id === $cita->user_id) || ($user->role == 'admin');
+        return ($user->id === $pedido->user_id) || ($user->role == 'admin');
     }
 
     /**
@@ -48,34 +48,34 @@ class CitaPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Cita  $cita
+     * @param  \App\Models\Pedido  $pedido
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Cita $cita)
+    public function update(User $user, Pedido $pedido)
     {
-        return ($user->id === $cita->user_id) || ($user->role == 'admin');
+        //
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Cita  $cita
+     * @param  \App\Models\Pedido  $pedido
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Cita $cita)
+    public function delete(User $user, Pedido $pedido)
     {
-        return ($user->id === $cita->user_id) || ($user->role == 'admin');
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Cita  $cita
+     * @param  \App\Models\Pedido  $pedido
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Cita $cita)
+    public function restore(User $user, Pedido $pedido)
     {
         //
     }
@@ -84,10 +84,10 @@ class CitaPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Cita  $cita
+     * @param  \App\Models\Pedido  $pedido
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Cita $cita)
+    public function forceDelete(User $user, Pedido $pedido)
     {
         //
     }

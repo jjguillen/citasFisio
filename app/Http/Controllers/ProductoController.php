@@ -111,6 +111,14 @@ class ProductoController extends Controller
         return view('verCarro', ['items' => $items]);
     }
 
+    public function quitarCarro($id) {
+        $userID = Auth::id();
+        \Cart::session($userID)->remove($id);
+
+        $items = \Cart::getContent();
+        return view('verCarro', ['items' => $items]);
+    }
+
 
 
 

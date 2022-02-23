@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Citas') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('dashboard.pedidos')" :active="request()->routeIs('dashboard')">
+                        {{ __('Pedidos') }}
+                    </x-nav-link>
                     @if (Auth::user()->role == 'admin')
                         <x-nav-link :href="route('dashboard.servicios')" :active="request()->routeIs('dashboard')">
                             {{ __('Servicios') }}

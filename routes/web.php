@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\PedidoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,13 @@ use App\Http\Controllers\ProductoController;
 //Las rutas estáticas con lo que ofrece la empresa - PÁGINA ESTÁTICA
 Route::get('/', [ServicioController::class, 'indexPublic']);
 Route::get('/tienda', [ProductoController::class, 'index']);
-Route::get('/tienda/carro/{id}', [ProductoController::class, 'addCarro']);
-Route::get('/tienda/verCarro', [ProductoController::class, 'verCarro']);
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/tienda/carro/{id}', [ProductoController::class, 'addCarro']);
+    Route::get('/tienda/verCarro', [ProductoController::class, 'verCarro']);
+    Route::get('/tienda/quitarCarro/{id}', [ProductoController::class, 'quitarCarro']);
+    Route::get('/tienda/hacerPedido', [PedidoController::class, 'hacerPedido']);
+});
 
 
 Route::prefix('/dashboard')->group(function () {
@@ -44,6 +49,11 @@ Route::prefix('/dashboard')->group(function () {
 
         //Ver horas libres en una fecha, para poder dar una cita
         Route::get('/citas/horasDisp/{fecha}', [CitaController::class, 'horasDisp']);
+
+        //Rutas de PEDIDOS --------------------------------
+        Route::get('/pedidos', [PedidoController::class, 'index'])->name('dashboard.pedidos');
+        Route::get('/pedidos/{id}', [PedidoController::class, 'show']);
+
     });
 
     Route::middleware(['auth','role:admin'])->group(function () {
