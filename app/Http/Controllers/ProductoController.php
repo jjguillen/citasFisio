@@ -100,20 +100,15 @@ class ProductoController extends Controller
             'associatedModel' => $producto
         ));
 
-        return back()->withInput();
+        return back();
     }
 
     public function verCarro() {
-        $items = \Cart::getContent();
-        foreach($items as $row) {
+        $userID = Auth::id();
+        \Cart::session($userID);
 
-            echo $row->id; // row ID
-            echo $row->name;
-            echo $row->qty;
-            echo $row->price;
-        }
-        
-        //return view('verCarro', ['items' => $items]);
+        $items = \Cart::getContent();
+        return view('verCarro', ['items' => $items]);
     }
 
 
