@@ -67,11 +67,9 @@
                         <img src='{{ $producto->imagen }}'>
                         <span class='ml-5'>{{ $producto->precio }}€</span>
                         @auth
-                        <a href="/tienda/carro/{{ $producto->id }}" class="text-indigo-600 hover:text-indigo-900 ml-5">
-                            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded">
+                            <x-boton-tienda :href="$producto->id">
                                 Comprar
-                            </button>
-                        </a>
+                            </x-boton-tienda>
                         @endauth
                         </div>
                         <p class="text-lg leading-6 font-medium text-gray-900">{{ $producto->nombre }}</p>

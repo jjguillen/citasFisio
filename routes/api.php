@@ -38,6 +38,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::post('/citas', [CitaController::class, 'createApi']);
+    Route::delete('/citas/{id}', [CitaController::class, 'deleteApi']);
 });
 
 //Estas rutas van fuera de auth:sanctum por que son las que generan el token, aún no lo tenemos

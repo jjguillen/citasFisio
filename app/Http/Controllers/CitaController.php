@@ -190,4 +190,16 @@ class CitaController extends Controller
             'message' => 'Cita creada correctamente'
         ]);
     }
+
+    public function deleteApi($id)
+    {
+        $cita = Cita::find($id);
+        $this->authorize('delete', $cita);
+        Cita::destroy($id);
+       
+        return response()->json([
+            'message' => 'Cita eliminada correctamente'
+        ]);
+
+    }
 }
