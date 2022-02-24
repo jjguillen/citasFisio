@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\QueryException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -34,15 +35,14 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e, $request) {
-            /*
+
+        $this->renderable(function (QueryException $e, $request) {
             if ($request->is('api/*')) {
                 return response()->json([
                     'message' => 'Error en API',
                     'error' => $e->getMessage(),
                 ], 404);
             }
-            */
         });
     }
 }
