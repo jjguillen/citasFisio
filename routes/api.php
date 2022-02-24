@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthApiController;
+use App\Http\Controllers\CitaController;
 use App\Models\Pedido;
 use App\Models\Producto;
 use App\Models\Cita;
@@ -21,6 +22,7 @@ use App\Http\Resources\PedidoResource;
 |
 */
 
+//Todo lo que esté bajo el middleware auth:sanctum comprueba el token
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/pedidos', function () {
         return PedidoResource::collection(Pedido::all());
@@ -34,7 +36,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/citas', function () {
         return CitaResource::collection(Cita::all());
     });
+
+    Route::post('/citas', [CitaController::class, 'createApi']);
 });
 
+//Estas rutas van fuera de auth:sanctum por que son las que generan el token, aún no lo tenemos
 Route::post('/registro', [AuthApiController::class, 'registro']);
 Route::post('/login', [AuthApiController::class, 'login']);

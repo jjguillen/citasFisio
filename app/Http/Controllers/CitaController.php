@@ -160,4 +160,34 @@ class CitaController extends Controller
         return redirect()->route('citas.index');
 
     }
+
+    /**
+     *  Crear cita a través de la API 
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function createApi(Request $request)
+    {
+        $hoy = Carbon::now();
+
+        //Validación
+        $validated = $request->validate([
+            'observaciones' => 'required|max:255',
+            'fecha' => 'required|after:today'
+        ]);
+
+        //Insercción
+        $cita = new Cita;
+        $cita->fecha = $request->fecha;
+        $cita->hora = $request->hora;
+        $cita->observaciones = $request->observaciones;
+        $cita->servicio_id = $request->servicio;
+        $cita->user_id = Auth::id();
+        $cita->save();
+
+        return response()->json([
+            'message' => 'Cita creada correctamente'
+        ]);
+    }
 }
