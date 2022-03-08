@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Servicio;
 use App\Models\Cita;
+use App\Models\Imagen;
 use Illuminate\Support\Facades\Auth;
 
 class ServicioController extends Controller
@@ -62,6 +63,20 @@ class ServicioController extends Controller
 
         $servicio->imagen = asset('storage/'.$servicio->id.'.jpg');
         $servicio->save();
+
+        if (empty($request->file('imagen')->getRealPath())) {
+            return back()->with('success','No file selected');
+        } else {
+            $imagen = new Imagen;
+
+            $path = $request->file('imagen')->getRealPath();
+            $logo = file_get_contents($path);
+            $base64 = base64_encode($logo);
+            $imagen->foto = $base64;
+            $imagen->save();
+
+            echo "<img src='data:image/jpg;base64, " . $imagen->foto . "'>";
+        }
 
 
     }

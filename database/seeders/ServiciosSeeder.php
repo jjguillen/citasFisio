@@ -15,13 +15,13 @@ class ServiciosSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('servicios')->insert([ 'servicio' => 'Masaje completo' ]);
-        DB::table('servicios')->insert([ 'servicio' => 'Masaje tailandés' ]);
-        DB::table('servicios')->insert([ 'servicio' => 'Tratamiento cuello' ]);
-        DB::table('servicios')->insert([ 'servicio' => 'Tratamiento espalda' ]);
-        DB::table('servicios')->insert([ 'servicio' => 'EPI' ]);
-        DB::table('servicios')->insert([ 'servicio' => 'Masaje completo' ]);
-        DB::table('servicios')->insert([ 'servicio' => 'Drenaje linfático' ]);
-        DB::table('servicios')->insert([ 'servicio' => 'Tratamiento deportivo' ]);
+        DB::table('servicios')->insert([ 'servicio' => 'Masaje completo', 'imagen' => '' ]);
+        DB::table('servicios')->insert([ 'servicio' => 'Masaje tailandés', 'imagen' => '' ]);
+        DB::table('servicios')->insert([ 'servicio' => 'Tratamiento cuello', 'imagen' => '' ]);
+        DB::table('servicios')->insert([ 'servicio' => 'Tratamiento espalda', 'imagen' => '' ]);
+        DB::table('servicios')->insert([ 'servicio' => 'EPI', 'imagen' => '' ]);
+        DB::table('servicios')->insert([ 'servicio' => 'Masaje completo', 'imagen' => '' ]);
+        DB::table('servicios')->insert([ 'servicio' => 'Drenaje linfático', 'imagen' => '' ]);
+        DB::table('servicios')->insert([ 'servicio' => 'Tratamiento deportivo', 'imagen' => '' ]);
     }
 }
